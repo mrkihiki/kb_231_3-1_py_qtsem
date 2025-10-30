@@ -1,6 +1,7 @@
 import sqlite3
 from datetime import date
 
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog, QTableWidgetItem, QMessageBox
 
 from Form1_1_ui import Ui_MainWindow as Form1_1_ui
@@ -50,7 +51,7 @@ class Form1_1(QMainWindow):
             que = "INSERT INTO dishes (name, ingredients, url) VALUES(?, ?, ?)"
         cur.execute(que, params)
         self.parent.parent.connection.commit()
-        self.parent.select_data()
+        self.parent.select_data(0)
         self.close()
         # else:
         #     que = "UPDATE films SET\n"
@@ -61,6 +62,10 @@ class Form1_1(QMainWindow):
         #     self.parent.connection.commit()
         #     self.parent.select_data()
         #     self.close()
+
+    def keyPressEvent(self, event):
+        if event.key() == Qt.Key.Key_Escape:
+            self.close()
 
     def closeEvent(self, event):
         # self.connection.close()

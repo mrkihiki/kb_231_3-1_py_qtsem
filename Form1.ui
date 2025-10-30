@@ -49,6 +49,16 @@
             <string/>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>рейтинг</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>избранное</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item>

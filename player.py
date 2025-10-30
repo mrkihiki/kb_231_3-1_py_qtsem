@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import (
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtCore import QUrl
 
+
 class VideoMessageBox(QDialog):
     def __init__(self, parent=None, title="Видео", text="", video_url=None):
         super().__init__(parent)

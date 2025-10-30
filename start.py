@@ -57,6 +57,7 @@ class MyWidget(QMainWindow):
         if event.key() == Qt.Key.Key_Escape:
             self.close()
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyWidget()
