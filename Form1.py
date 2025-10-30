@@ -4,6 +4,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QFileDialog, QTableWidget
 
 from Form1_ui import Ui_MainWindow as Form1_ui
 from player import VideoMessageBox
+from Form1_1 import Form1_1
 
 class Form1(QMainWindow):
     def __init__(self, *args):
@@ -11,8 +12,10 @@ class Form1(QMainWindow):
         self.ui = Form1_ui()
         self.ui.setupUi(self)
         self.parent = args[-1]
+        self.bool = True
         self.ui.pushButton.clicked.connect(lambda: self.run(1))
         self.ui.pushButton_4.clicked.connect(lambda: self.run(2))
+        self.ui.pushButton_3.clicked.connect(lambda: self.run(3))
         self.select_data()
 
     def run(self, form_number):
@@ -71,6 +74,11 @@ class Form1(QMainWindow):
                     (int(self.parent.loggin_id), int(dish_id))
                 )
                 self.parent.connection.commit()
+        elif form_number == 3:
+            self.form1_1 = Form1_1(self)
+            self.form1_1.show()
+            self.bool = False
+            self.close()
 
     def select_data(self):
         # Получим таблицу
@@ -80,19 +88,19 @@ class Form1(QMainWindow):
                  self.parent.connection.cursor().execute(
                      "SELECT name FROM pragma_table_info('dishes_with_ratings')").fetchall()]
         # Заполним размеры таблицы
-        self.ui.tableWidget.setColumnCount(5)
+        self.ui.tableWidget.setColumnCount(4)
         self.ui.tableWidget.setRowCount(0)
-        self.ui.tableWidget.setHorizontalHeaderLabels(names)
+        self.ui.tableWidget.setHorizontalHeaderLabels(names[0:2]+names[4:6])
         # Заполняем таблицу элементами
         for i, row in enumerate(self.res):
             self.ui.tableWidget.setRowCount(
                 self.ui.tableWidget.rowCount() + 1)
+            jj = 0
             for j, elem in enumerate(row):
-                self.ui.tableWidget.setItem(
-                    i, j, QTableWidgetItem(str(elem)))
-                if j == 2:
-                    # Всплывающие окно
-                    self.ui.tableWidget.item(i, j).setToolTip(str(elem))
+                if j in [0,1,4,5]:
+                    self.ui.tableWidget.setItem(
+                        i, jj, QTableWidgetItem(str(elem)))
+                    jj+=1
         self.ui.tableWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.tableWidget.customContextMenuRequested.connect(self.on_right_click)
 
@@ -111,6 +119,7 @@ class Form1(QMainWindow):
         if item:
             # Получаем данные из базы для этой строки
             dish_data = self.res[row]
+            print(dish_data)
 
             # Создаем детализированное сообщение
             title = f"Информация: {dish_data[1]}"  # Название
@@ -121,9 +130,9 @@ class Form1(QMainWindow):
             • ID: {dish_data[0]}
             • Название: {dish_data[1]}
             • примерные ингредиенты: {dish_data[2]}
-            • Рейтинг: {dish_data[3]}
+            • Рейтинг: {dish_data[4]}
             """
-            video_url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            video_url = dish_data[3]
             dlg = VideoMessageBox(self, title, message.strip(),video_url)
             dlg.exec()
 
@@ -133,5 +142,6 @@ class Form1(QMainWindow):
 
     def closeEvent(self, event):
         event.accept()  # Разрешаем закрытие
-        del self.parent.loggin_id
-        self.parent.show()
+        if self.bool:
+            del self.parent.loggin_id
+            self.parent.show()
