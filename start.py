@@ -1,3 +1,4 @@
+import os
 import sqlite3
 import sys
 from PyQt6 import uic  # Импортируем uic
@@ -7,13 +8,24 @@ from start_ui import Ui_MainWindow as MainFormUI
 from Form1 import Form1
 
 
+def resource_path(relative_path):
+    """Получает правильный путь к ресурсам для dev и exe"""
+    try:
+        # PyInstaller создает временную папку в _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
 class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         # uic.loadUi('start_ui.py', self)  # Загружаем дизайн
         self.ui = MainFormUI()
         self.ui.setupUi(self)
-        self.connection = sqlite3.connect("qtsem.db")
+        self.connection = sqlite3.connect(resource_path(os.path.join('', 'qtsem.db')))
         self.ui.pushButton.clicked.connect(lambda: self.open_form(1))
         self.ui.pushButton_2.clicked.connect(lambda: self.open_form(2))
 

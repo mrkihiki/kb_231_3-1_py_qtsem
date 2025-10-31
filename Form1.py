@@ -129,7 +129,7 @@ class Form1(QMainWindow):
                 if j in [0, 1, 4, 5]:
                     if j == 0:
                         self.ui.tableWidget.setItem(
-                            ii, jj, QTableWidgetItem(str(ii+1)))
+                            ii, jj, QTableWidgetItem(str(ii + 1)))
                     else:
                         self.ui.tableWidget.setItem(ii, jj, QTableWidgetItem(str(elem)))
                     if str(row[0]) in str(favourites):
@@ -138,8 +138,6 @@ class Form1(QMainWindow):
         self.ui.tableWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
         self.ui.tableWidget.customContextMenuRequested.connect(self.on_right_click)
         self.ui.spinBox.setMaximum(self.ui.tableWidget.rowCount())
-        print("--")
-        print(self.res)
 
     def on_right_click(self, position):
         # Обработчик правого клика
