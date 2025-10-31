@@ -34,8 +34,10 @@
    ```bash
    git clone https://github.com/mrkihiki/kb_231_3-1_py_qtsem.git
    cd kb_231_3-1_py_qtsem
+
 3. Установите зависимости   
 pip install -r requirements.txt
+
 4.Запуск приложения
 python start.py
 
