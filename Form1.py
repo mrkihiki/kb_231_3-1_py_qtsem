@@ -21,6 +21,8 @@ class Form1(QMainWindow):
         self.ui.pushButton_3.clicked.connect(lambda: self.run(3))
         self.ui.pushButton_2.clicked.connect(lambda: self.run(4))
         self.select_data(0)
+        self.ui.tableWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
+        self.ui.tableWidget.customContextMenuRequested.connect(self.on_right_click)
 
     def run(self, form_number):
         cursor = self.parent.connection.cursor()
@@ -135,8 +137,6 @@ class Form1(QMainWindow):
                     if str(row[0]) in str(favourites):
                         self.ui.tableWidget.item(ii, jj).setBackground(QColor('yellow'))
                     jj += 1
-        self.ui.tableWidget.setContextMenuPolicy(Qt.ContextMenuPolicy.CustomContextMenu)
-        self.ui.tableWidget.customContextMenuRequested.connect(self.on_right_click)
         self.ui.spinBox.setMaximum(self.ui.tableWidget.rowCount())
 
     def on_right_click(self, position):
@@ -154,7 +154,6 @@ class Form1(QMainWindow):
         if item:
             # Получаем данные из базы для этой строки
             dish_data = self.res[row]
-            print(dish_data)
 
             # Создаем детализированное сообщение
             title = f"Информация: {dish_data[1]}"  # Название
