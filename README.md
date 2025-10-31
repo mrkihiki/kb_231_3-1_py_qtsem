@@ -38,7 +38,7 @@
 3. Установите зависимости   
 pip install -r requirements.txt
 
-4.Запуск приложения
+4. Запуск приложения
 python start.py
 
 или Скачайте exe
