@@ -24,7 +24,7 @@
 <img width="899" height="242" alt="image" src="https://github.com/user-attachments/assets/e4db13e5-dfb9-4062-8ac0-cf05dc339268" />
 
 - ➕ **Добавление новых рецептов**  
-  Возможность добавлять собственные рецепты с описанием, ингредиентами и изображением.
+  Возможность добавлять собственные рецепты с описанием, ингредиентами.
 <img width="563" height="409" alt="image" src="https://github.com/user-attachments/assets/e5cb48a3-8e6e-4ef5-b200-1b1b4be5bd1e" />
 
 - ⚙️ **Сортировка блюд**  
